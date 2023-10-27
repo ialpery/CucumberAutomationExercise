@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -65,4 +66,13 @@ public class AutomationExerciseStepDefinitions {
         Driver.closeDriver();
     }
 
+    @And("Wait {int} seconds")
+    public void waitSeconds(int waitSeconds) {
+
+        try {
+            Thread.sleep(waitSeconds*100);
+        } catch (InterruptedException e) {
+
+        }
+    }
 }
