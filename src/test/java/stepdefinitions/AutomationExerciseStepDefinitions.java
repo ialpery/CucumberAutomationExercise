@@ -16,7 +16,7 @@ public class AutomationExerciseStepDefinitions {
     MainPage mainPage = new MainPage();
     CartPage cartPage = new CartPage();
 
-    @Given("user navigated to url")
+    @Given("User navigated to url")
     public void user_navigated_to_url() {
 
         Driver.getDriver().get(ConfigReader.getProperty("aeUrl"));
