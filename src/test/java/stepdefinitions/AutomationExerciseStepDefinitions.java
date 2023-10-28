@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import pages.CartPage;
 import pages.MainPage;
+import pages.ProductsPage;
 import utilities.ConfigReader;
 import utilities.Driver;
 
@@ -15,6 +16,7 @@ public class AutomationExerciseStepDefinitions {
 
     MainPage mainPage = new MainPage();
     CartPage cartPage = new CartPage();
+    ProductsPage productsPage = new ProductsPage();
 
     @Given("User navigated to url")
     public void user_navigated_to_url() {
@@ -74,5 +76,49 @@ public class AutomationExerciseStepDefinitions {
         } catch (InterruptedException e) {
 
         }
+    }
+
+    @And("Click Products button")
+    public void clickProductsButton() {
+        mainPage.productsButton.click();
+    }
+
+    @And("Hover over first product and click Add to cart")
+    public void hoverOverFirstProductAndClickAddToCart() {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].scrollIntoView();", productsPage.firstProductAddtoCartButton);
+
+        productsPage.firstProductAddtoCartButton.click();
+    }
+
+    @And("Click Continue Shopping button")
+    public void clickContinueShoppingButton() {
+        productsPage.continueShoppingButton.click();
+    }
+
+    @And("Hover over second product and click  Add to cart")
+    public void hoverOverSecondProductAndClickAddToCart() {
+        productsPage.secondProductAddtoCartButton.click();
+    }
+
+    @And("Click View Cart button")
+    public void clickViewCartButton() {
+        productsPage.viewCartButton.click();
+    }
+
+    @And("Verify both products are added to Cart")
+    public void verifyBothProductsAreAddedToCart() {
+        Assert.assertTrue(cartPage.firstProduct.isDisplayed());
+        Assert.assertTrue(cartPage.secondProduct.isDisplayed());
+    }
+
+    @And("Verify their prices, quantity and total price")
+    public void verifyTheirPricesQuantityAndTotalPrice() {
+        Assert.assertTrue(cartPage.firstProductPrice.isDisplayed());
+        Assert.assertTrue(cartPage.secondProductPrice.isDisplayed());
+        Assert.assertEquals(cartPage.firstProductQuantity.getText(), "1");
+        Assert.assertEquals(cartPage.secondProductQuantity.getText(), "1");
+        Assert.assertEquals(cartPage.firstProductTotalPrice, cartPage.firstProductPrice);
+        Assert.assertEquals(cartPage.secondProductTotalPrice, cartPage.secondProductPrice);
     }
 }
